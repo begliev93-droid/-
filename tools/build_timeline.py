@@ -47,7 +47,7 @@ os.makedirs(f'{ep}/src',exist_ok=True)
 with open(f'{ep}/src/sentences.ts','w') as f:
     f.write('// автогенерация tools/build_timeline.py — не править руками\n')
     f.write(f'export const FPS = {FPS};\nexport const TOTAL_SEC = {t:.3f};\nexport const TOTAL_FRAMES = {int(np.ceil(t*FPS))};\n')
-    f.write('export type Sentence = {id: string; voice: string; start: number; end: number; chapter?: string; text: string};\n')
+    f.write('export type Sentence = {id: string; voice: string; start: number; end: number; chapter?: string | null; text: string};\n')
     f.write('export const sentences: Sentence[] = '+json.dumps(rows,ensure_ascii=False,indent=1)+';\n')
 print(f'итого {t:.1f}s = {int(t//60)}:{t%60:04.1f}, реплик {len(rows)}')
 short=[r for r in rows if r['end']-r['start']<0.7]

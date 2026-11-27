@@ -2,7 +2,7 @@
 export const FPS = 30;
 export const TOTAL_SEC = 715.131;
 export const TOTAL_FRAMES = 21454;
-export type Sentence = {id: string; voice: string; start: number; end: number; chapter?: string; text: string};
+export type Sentence = {id: string; voice: string; start: number; end: number; chapter?: string | null; text: string};
 export const sentences: Sentence[] = [
  {
   "id": "001",
