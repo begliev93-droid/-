@@ -5,7 +5,7 @@ import {useShot} from '../lib/ctx';
 import {Camera} from '../lib/Camera';
 import {Steppe, Yurt, Aul, YurtInside, Kazan, Tostik_meat, Loom, Ketpen, Arrow} from '../lib/scenery';
 import {Tostik, Ernazar, Ana, Ormekshi, Brother, Kid, Guest} from '../lib/cast';
-import {Horse, Bustard, Herd} from '../lib/animals';
+import {Horse, Bustard, Herd, Flock, Caravan, Pen} from '../lib/animals';
 import {Snow, SpeedLines, DizzyStars, Sparkle, Burst, Vignette, Rays, Hearts} from '../lib/fx';
 import {Big} from '../lib/Cards';
 import {tr} from '../lib/i18n';
@@ -38,16 +38,25 @@ export const shots1: ShotDef[] = [
   {s: '004', r: () => <Camera z={[1.25, 1.4]} focus={[1180, 580]}><Steppe sky="day" /><Yurt x={1500} y={820} scale={0.9} /><Ormekshi x={1180} y={960} scale={1.5} facing={-1} pose="point" expr="angry" talk /></Camera>},
   {s: '005', r: () => <><Camera z={[1.1, 1.2]} focus={[960, 560]}><Steppe sky="day" /><Silhouettes x={960} y={720} o={0.35} s={0.75} /><Tostik x={960} y={960} scale={1.45} expr="shock" sweat /></Camera><Big text={tr('СЕГІЗ АҒА?')} y={180} at={6} /></>},
   {s: '006', r: () => <Camera z={[1.05, 1.12]} focus={[960, 640]}><YurtInside night fire /><Ernazar x={760} y={960} scale={1.3} pose="sit" expr="sad" look_={1} talk={false} /><Ana x={1160} y={960} scale={1.3} facing={-1} pose="sit" expr="sad" /><Vignette k={0.6} /></Camera>},
-  {s: '007', r: () => { const f = F(); return <Camera z={[1, 1.05]} focus={[960, 560]}><Steppe sky="sunset" /><Tostik x={lerp(f, 0, D(), 300, 900, (t) => t)} y={900} scale={1.1} pose="walk" stick={1} expr="determined" /></Camera>; }},
+  {s: '007', r: () => { const f = F(); return <Camera z={[1, 1.05]} focus={[960, 560]}><Steppe sky="sunset" /><Tostik x={lerp(f, 0, D(), 300, 900, (t) => t)} y={900} scale={1.1} pose="walk" stick={1} bowBack expr="determined" /></Camera>; }},
   {s: '008', r: () => <Camera z={[1.4, 1.55]} focus={[960, 500]}><Steppe sky="sunset" /><Tostik x={960} y={1000} scale={1.6} expr="determined" look_={0} lookY={0} /><Rays x={960} y={500} o={0.25} /></Camera>},
   {s: '009', r: () => <Camera z={[1.4, 1.9]} focus={[960, -40]}><YurtInside light /><Tostik_meat x={960} y={-60} scale={1.3} glow rope={60} /><Sparkle x={1080} y={-120} at={20} /></Camera>},
   {s: '009', t: AFTER('009'), r: () => <Steppe sky="night" />},
   // ── 1. Жұт
   {s: '010', r: () => <Camera z={[1, 1.06]} focus={[960, 640]}><Steppe sky="day" /><Aul n={5} /><Yurt x={1300} y={900} scale={0.9} smoke /><Ernazar x={800} y={960} scale={1.3} pose="handsHips" expr="smug" /></Camera>},
-  {s: '011', r: () => { const f = F(); return <Camera z={[1, 1.08]} focus={[960, 620]} focus2={[1100, 620]}><Steppe sky="day" /><Herd x={1000} y={780} n={26} w={1700} scale={0.32} walk={0.3} /><Ernazar x={400} y={980} scale={1.2} pose="point" expr="happy" /><Sparkle x={1400} y={600} at={Math.min(20, D() - 10)} /></Camera>; }},
+  {s: '011', r: () => { const f = F(); const d = D(); return <Camera z={[1, 1.07]} focus={[960, 600]} focus2={[1050, 600]}><Steppe sky="day" horizon={560} />
+    <Herd x={1350} y={640} n={22} w={1100} scale={0.22} />
+    <Caravan x={lerp(f, 0, d, 900, 1300, (t) => t)} y={760} n={5} gap={170} scale={0.42} walk={1} />
+    <Pen x={560} y={930} w={620} /><Flock x={560} y={900} n={12} w={520} h={60} scale={0.55} /><Pen x={560} y={985} w={620} />
+    <Ernazar x={1500} y={1010} scale={1.15} facing={-1} pose="point" expr="happy" /><Sparkle x={1500} y={600} at={Math.min(20, d - 10)} /></Camera>; }},
   {s: '012', r: () => { const f = F(); return <Camera z={[1, 1.05]} focus={[960, 620]}><Steppe sky="day" /><Yurt x={1700} y={820} scale={0.7} />{Array.from({length: 8}).map((_, i) => <Brother key={i} i={i} x={260 + i * 190} y={960} scale={1.05 - i * 0.03} expr={i === 7 && f > 30 ? 'smug' : 'happy'} pose={i === 7 && f > 30 ? 'wave' : 'stand'} />)}</Camera>; }},
   {s: '013', r: () => <Camera z={[1, 1.06]} shake={[6]} shakeAmp={8}><Steppe sky="winter" ground="snow" /><Aul n={4} /><Snow heavy wind={6} /><Vignette k={0.35} color="#6C7A99" /></Camera>},
-  {s: '014', r: () => { const f = F(); const dx = lerp(f, 0, D(), 0, 500, (t) => t); return <Camera z={[1, 1.04]}><Steppe sky="winter" ground="snow" /><Herd x={1100 + dx} y={760} n={20} w={900} scale={0.3} walk={1} />{[0, 1, 2, 3].map((i) => <Brother key={i} i={i} x={700 + i * 120 + dx} y={880 + (i % 2) * 20} scale={0.8} pose="walk" expr="sad" />)}<Snow heavy wind={7} /></Camera>; }},
+  {s: '014', r: () => { const f = F(); const dx = lerp(f, 0, D(), 0, 520, (t) => t); return <Camera z={[1, 1.04]}><Steppe sky="winter" ground="snow" />
+    <Herd x={1500 + dx} y={700} n={16} w={600} scale={0.25} walk={1} />
+    <Caravan x={1250 + dx} y={770} n={4} gap={150} scale={0.38} walk={1} />
+    <Flock x={1050 + dx} y={850} n={14} w={520} h={60} scale={0.45} walk={1} />
+    {Array.from({length: 8}).map((_, i) => <Brother key={i} i={i} x={140 + i * 85 + dx} y={920 + (i % 2) * 22} scale={0.72} pose="walk" expr="sad" />)}
+    <Snow heavy wind={7} /></Camera>; }},
   {s: '015', r: () => <Camera z={[1.2, 1.3]} focus={[900, 560]}><Steppe sky="winter" ground="snow" /><Brother i={2} x={1300} y={900} scale={1} facing={-1} /><Brother i={0} x={900} y={980} scale={1.4} facing={-1} pose="wave" expr="happy" talk /><Snow wind={6} /></Camera>},
   {s: '016', r: () => <Camera z={[1.1, 1.2]} focus={[900, 620]}><Steppe sky="winter" ground="snow" /><Yurt x={1300} y={900} scale={1} /><Ernazar x={800} y={980} scale={1.35} pose="wave" expr="sad" talk /><Ana x={1050} y={980} scale={1.3} expr="sad" tears /><Snow wind={6} /></Camera>},
   {s: '017', r: () => <Camera z={[1.1, 1.25]} focus={[960, 760]}><YurtInside /><Sack x={820} y={950} /><Sack x={940} y={960} s={0.9} /><Sack x={1060} y={955} /><Ernazar x={560} y={980} scale={1.2} expr="neutral" pose="hold" /><Ana x={1360} y={980} scale={1.2} facing={-1} expr="neutral" /></Camera>},
@@ -89,7 +98,15 @@ export const shots1: ShotDef[] = [
   {s: '044', r: () => { const f = F(); return <Camera z={[1, 1.04]}><Steppe sky="day" /><SpeedLines dir={-1} /><Bustard x={lerp(f, 0, D(), 900, 1500, (t) => t)} y={900} scale={1} run oneWing /></Camera>; }},
   {s: '045', r: () => { const f = F(); return <Camera z={[1.05, 1.1]}><Steppe sky="day" /><SpeedLines dir={-1} /><Tostik x={lerp(f, 0, D(), 500, 900, (t) => t)} y={950} scale={1.3} pose="run" expr="determined" talk /><Bustard x={lerp(f, 0, D(), 1300, 1700, (t) => t)} y={920} scale={0.9} run oneWing /></Camera>; }},
   {s: '046', r: () => { const f = F(); const bx = lerp(f, 0, D(), 500, 1500, (t) => t); const by = 960 - Math.max(0, Math.sin(((bx - 700) / 600) * Math.PI)) * 260 * (bx > 700 && bx < 1300 ? 1 : 0); return <Camera z={[1, 1.05]}><Steppe sky="day" /><Yurt x={1650} y={830} scale={0.8} /><Loom x={1000} y={960} w={600} /><Ormekshi x={1000} y={890} scale={1} pose="sit" expr="neutral" /><Bustard x={bx} y={by} scale={0.8} run oneWing /></Camera>; }},
-  {s: '047', r: () => { const f = F(); const k = lerp(f, 0, D(), 0, 1, (t) => t); const x = 500 + k * 1000; const y = 980 - Math.sin(k * Math.PI) * 380; return <Camera z={[1, 1.06]}><Steppe sky="day" /><Loom x={1000} y={960} w={600} /><Ormekshi x={1000} y={890} scale={1} pose="sit" expr="shock" lookY={-1} /><Tostik x={x} y={y} scale={1.1} pose="jump" expr="happy" /></Camera>; }},
+  {s: '047', r: () => { const f = F(); const d = D(); const catchF = Math.round(d * 0.5); const k = lerp(f, 0, catchF, 0, 1, (t) => t);
+    // низкий прыжок: ноги проходят над самым өрмеком, носок цепляет нить
+    const x = f < catchF ? 560 + k * 380 : 940 + lerp(f, catchF, d, 0, 160, (t) => t); const y = f < catchF ? 990 - Math.sin(k * Math.PI * 0.9) * 95 : 990;
+    const tug = f >= catchF ? lerp(f, catchF, catchF + 10, 0, 1) : 0;
+    return <Camera z={[1.15, 1.25]} focus={[960, 760]} shake={[catchF]} shakeAmp={8}><Steppe sky="day" /><Loom x={1000} y={980} w={600} />
+      {tug > 0 && <path d={`M ${960} ${970} Q ${(960 + x + 40) / 2} ${930 - tug * 30} ${x + 40} ${y - 10}`} stroke={C.red} strokeWidth={5} fill="none" />}
+      <Ormekshi x={1340} y={900} scale={1} pose="sit" expr={f >= catchF ? 'shock' : 'neutral'} lookY={f >= catchF ? 1 : 0} />
+      <Tostik age="child" x={x} y={y} scale={1.25} pose={f < catchF ? 'jump' : 'fall'} rot={f < catchF ? 0 : lerp(f, catchF, catchF + 8, 0, 14)} expr={f < catchF ? 'happy' : 'shock'} />
+      <Burst x={980} y={960} at={catchF} /></Camera>; }},
   {s: '048', r: () => { const f = F(); const d = D(); const t1 = 4, t2 = Math.round(d * 0.18), t3 = Math.round(d * 0.32); return <Camera z={[1.3, 1.4]} focus={[1000, 900]} shake={[t1, t2, t3]}><Steppe sky="day" /><Loom x={1000} y={960} w={700} broken={f < t1 ? 0 : f < t2 ? 0.35 : f < t3 ? 0.7 : 1} /><Ormekshi x={1000} y={890} scale={1} pose="sit" expr="shock" sweat /><Burst x={960} y={940} at={t1} /><Burst x={1080} y={950} at={t2} /><Burst x={880} y={930} at={t3} /></Camera>; }},
   {s: '049', r: () => <Camera z={[1.3, 1.4]} focus={[1000, 540]} shake={[3]}><Steppe sky="day" /><Loom x={1000} y={980} w={800} broken={1} /><Ormekshi x={1000} y={980} scale={1.5} pose="armsUp" expr="angry" talk /></Camera>},
   {s: '050', r: () => <Camera z={[1.25, 1.35]} focus={[1100, 560]}><Steppe sky="day" /><Yurt x={1600} y={830} scale={0.8} /><Ormekshi x={1150} y={1000} scale={1.55} facing={-1} pose="point" expr="angry" talk /><Vignette k={0.3} color={C.red} /></Camera>},

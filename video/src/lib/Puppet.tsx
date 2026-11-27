@@ -15,7 +15,7 @@ export type Look = {
 };
 export type PersonProps = {
   name: string; look: Look; age: Age; x: number; y: number; scale?: number; facing?: 1 | -1;
-  pose?: Pose; expr?: Expr; talk?: boolean; speed?: number; look_?: number; lookY?: number; rot?: number; tears?: boolean; sweat?: boolean; ironBoots?: number; stick?: number; bow?: boolean;
+  pose?: Pose; expr?: Expr; talk?: boolean; speed?: number; look_?: number; lookY?: number; rot?: number; tears?: boolean; sweat?: boolean; ironBoots?: number; stick?: number; bow?: boolean; bowBack?: boolean;
 };
 
 const DIM: Record<Age, {head: number; body: number; bw: number; leg: number; arm: number; neck: number; limb: number}> = {
@@ -104,6 +104,7 @@ export const Person: React.FC<PersonProps> = (p) => {
         <Cap x1={-shX * 0.8} y1={shY + 8} x2={AB.ex1} y2={AB.ey1} w={d.limb} color={limbC} />
         <Cap x1={AB.ex1} y1={AB.ey1} x2={AB.ex2} y2={AB.ey2} w={d.limb} color={limbC} />
         <circle cx={AB.ex2} cy={AB.ey2} r={d.limb * 0.55} fill={skin} stroke={OUT} strokeWidth={SW} />
+        {p.bowBack && <g transform={`translate(${-bw * 0.42},${shY + 50}) rotate(-22)`}><path d="M 0 -150 Q 70 0 0 150" fill="none" stroke={OUT} strokeWidth={18} strokeLinecap="round" /><path d="M 0 -150 Q 70 0 0 150" fill="none" stroke={C.wood} strokeWidth={10} strokeLinecap="round" /><line x1={0} y1={-150} x2={0} y2={150} stroke={C.cream} strokeWidth={4} /></g>}
         {/* ноги */}
         <Cap x1={-10} y1={hipY} x2={-10 + lbx} y2={lby} w={d.limb + 2} color={legC} />
         <Cap x1={10} y1={hipY} x2={10 + lfx} y2={lfy} w={d.limb + 2} color={legC} />
@@ -115,6 +116,7 @@ export const Person: React.FC<PersonProps> = (p) => {
           {/* борт шапана с узором */}
           <path d={`M ${bw * 0.06} ${shY - 4} L ${bw * 0.12} ${hipY + 24}`} stroke={L.coat2 ?? C.gold} strokeWidth={8} />
           <rect x={-bw * 0.46} y={hipY - 14} width={bw * 0.92} height={14} rx={5} fill={L.belt ?? C.gold} stroke={OUT} strokeWidth={4} />
+          {p.bowBack && <line x1={-bw * 0.34} y1={shY + 6} x2={bw * 0.3} y2={hipY - 16} stroke={'#6E4222'} strokeWidth={9} strokeLinecap="round" />}
           {/* голова */}
           <g transform={`translate(0,${headY}) rotate(${Math.sin(frame * 0.045 + h * 20) * 3 + (ex === 'sad' ? 6 : 0)})`}>
             <Head d={d} L={L} skin={skin} blink={blink} eyeR={eyeR} brow={brow} ex={ex} talk={talkOpen} lookX={lookX} lookY={lookY} age={p.age} />
@@ -126,7 +128,7 @@ export const Person: React.FC<PersonProps> = (p) => {
         <Cap x1={shX * 0.8} y1={shY + 8} x2={AF.ex1} y2={AF.ey1} w={d.limb} color={limbC} />
         <Cap x1={AF.ex1} y1={AF.ey1} x2={AF.ex2} y2={AF.ey2} w={d.limb} color={limbC} />
         {p.bow && <Bow x={AF.ex2} y={AF.ey2} />}
-        {p.stick !== undefined && <line x1={AF.ex2} y1={AF.ey2 - 60 * p.stick} x2={AF.ex2 + 10} y2={AF.ey2 + 110 * p.stick} stroke={p.age === 'old' ? C.wood : C.iron} strokeWidth={10} strokeLinecap="round" />}
+        {p.stick !== undefined && <g><line x1={AF.ex2} y1={AF.ey2 - 70 * p.stick} x2={AF.ex2 + 12} y2={AF.ey2 + (d.leg + 40) * p.stick} stroke={OUT} strokeWidth={18} strokeLinecap="round" /><line x1={AF.ex2} y1={AF.ey2 - 70 * p.stick} x2={AF.ex2 + 12} y2={AF.ey2 + (d.leg + 40) * p.stick} stroke={p.age === 'old' ? C.wood : C.iron} strokeWidth={10} strokeLinecap="round" />{p.age !== 'old' && <line x1={AF.ex2 - 2} y1={AF.ey2 - 60 * p.stick} x2={AF.ex2 + 8} y2={AF.ey2 + d.leg * p.stick} stroke="#C5CCD8" strokeWidth={3} strokeLinecap="round" />}</g>}
         <circle cx={AF.ex2} cy={AF.ey2} r={d.limb * 0.55} fill={skin} stroke={OUT} strokeWidth={SW} />
       </g>
     </g>
