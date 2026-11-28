@@ -8,7 +8,7 @@ const at = (id: string, t = 0) => Math.max(0, Math.round((S[id].start + t) * FPS
 const endOf = (id: string, t = 0) => Math.round((S[id].end + t) * FPS);
 // сглаженная «есть речь» 0..1 для приглушения музыки (окно ±8 кадров)
 const E = env as number[];
-const speech = (() => { const out = new Float32Array(E.length); for (let i = 0; i < E.length; i++) { let m = 0; for (let k = -8; k <= 8; k++) m = Math.max(m, E[i + k] ?? 0); out[i] = Math.min(1, m * 3); } let s = 0; for (let i = 0; i < out.length; i++) { s = s + (out[i] - s) * 0.15; out[i] = s; } return out; })();
+const speech = (() => { const out = new Float32Array(E.length); for (let i = 0; i < E.length; i++) { let m = 0; for (let k = -8; k <= 8; k++) m = Math.max(m, E[i + k] ?? 0); out[i] = Math.min(1, m * 3); } let s = 0; for (let i = 0; i < out.length; i++) { const k = out[i] > s ? 0.35 : 0.03; s = s + (out[i] - s) * k; out[i] = s; } return out; })();
 type Seg = {track: string; from: number; to: number; vol?: number};
 // Музыка по главам
 const MUSIC: Seg[] = [
@@ -23,7 +23,7 @@ const MUSIC: Seg[] = [
   {track: 'mysterious', from: at('163', -0.3), to: at('182', -0.5), vol: 1},
   {track: 'emotional', from: at('182', -0.5), to: TOTAL_FRAMES},
 ];
-const BED = 0.30, DUCK = 0.09, FADE = 24;
+const BED = 0.20, DUCK = 0.06, FADE = 24;
 const MusicSeg: React.FC<{seg: Seg}> = ({seg}) => {
   const dur = seg.to - seg.from;
   return <Sequence from={seg.from} durationInFrames={dur} name={'♪ ' + seg.track}>
