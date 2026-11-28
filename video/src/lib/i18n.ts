@@ -1,6 +1,6 @@
 // Все надписи в кадре — через tr(). Второй язык добавляется сюда.
 const DICT: Record<string, Record<string, string>> = {
-  en: {'ЕР ТӨСТІК': 'ER TOSTIK', '1-бөлім: Сегіз аға': 'Part 1: Eight Brothers', 'ЖҰТ': 'THE GREAT FREEZE', 'ТӨСТІК': 'TOSTIK', 'ӨСУ': 'GROWING UP', 'ӨРМЕК': 'THE LOOM', 'АСЫҚ': 'ASYK', 'ЖОЛ': 'THE ROAD', 'АС': 'THE FEAST', 'ЖЫЛҚЫ ЖҮРМЕЙДІ': 'THE STUBBORN HERD', 'ҮЙГЕ': 'HOME', 'ТОҒЫЗ СЫРҒА': 'NINE EARRINGS', 'СҮЙІНШІ!': 'GOOD NEWS!', 'ЖАЛҒАСЫ БАР...': 'TO BE CONTINUED...', 'СЕГІЗ АҒА?': 'EIGHT BROTHERS?', '2-бөлім жақында': 'Part 2 coming soon'},
+  en: {'ЕР ТӨСТІК': 'ER TOSTIK', '1-бөлім: Сегіз аға': 'Part 1: Eight Brothers', 'ЖҰТ': 'THE GREAT FREEZE', 'ТӨСТІК': 'TOSTIK', 'ӨСУ': 'GROWING UP', 'ӨРМЕК': 'THE LOOM', 'АСЫҚ': 'ASYK', 'ЖОЛ': 'THE ROAD', 'АС': 'THE FEAST', 'ЖЫЛҚЫ ЖҮРМЕЙДІ': 'THE STUBBORN HERD', 'ҮЙГЕ': 'HOME', 'ТОҒЫЗ СЫРҒА': 'NINE EARRINGS', 'СҮЙІНШІ!': 'GOOD NEWS!', 'ЖАЛҒАСЫ БАР...': 'TO BE CONTINUED...', 'СЕГІЗ АҒА?': 'EIGHT BROTHERS?', '2-бөлім жақында': 'Part 2 coming soon', '3-бөлім жақында': 'Part 3 coming soon', '2-бөлім: Жалмауыздың егеуі': "Part 2: The Witch's File"},
 };
 let LANG = 'kk';
 export const setLang = (l: string) => { LANG = l; };

@@ -10,7 +10,7 @@ export type Sentence = {id: string; voice: string; start: number; end: number; c
 const ShotRender: React.FC<{r: () => React.ReactNode}> = ({r}) => <>{r()}</>;
 // w — слово-удар: кадр начнётся на этом слове (оценка по доле символов в реплике)
 export type ShotDef = {s: string; t?: number; w?: string; r: () => React.ReactNode};
-export const Episode: React.FC<{shots: ShotDef[]; sentences: Sentence[]; fps: number; total: number; audio: string; chapters: Record<string, string>; lang: string}> = ({shots, sentences, fps, total, audio, chapters, lang}) => {
+export const Episode: React.FC<{shots: ShotDef[]; sentences: Sentence[]; fps: number; total: number; audio: string; chapters: Record<string, string>; lang: string; env: number[]}> = ({shots, sentences, fps, total, audio, chapters, lang, env}) => {
   setLang(lang); loadFonts();
   const S: Record<string, Sentence> = Object.fromEntries(sentences.map((x) => [x.id, x]));
   const starts = shots.map((sh, i) => {
@@ -27,7 +27,7 @@ export const Episode: React.FC<{shots: ShotDef[]; sentences: Sentence[]; fps: nu
     <AbsoluteFill style={{backgroundColor: C.ink}}>
       {items.map(({sh, from, dur}, i) => (
         <Sequence key={i} from={from} durationInFrames={Math.max(1, dur)} name={`${sh.s}${sh.t ? '+' + sh.t : ''}`}>
-          <ShotCtx.Provider value={{from, dur, lang}}>
+          <ShotCtx.Provider value={{from, dur, lang, env}}>
             <AbsoluteFill><svg width={1920} height={1080} viewBox="0 0 1920 1080" style={{overflow: 'hidden'}}><ShotRender r={sh.r} /></svg></AbsoluteFill>
           </ShotCtx.Provider>
         </Sequence>

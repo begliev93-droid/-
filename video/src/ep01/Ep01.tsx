@@ -4,6 +4,7 @@ import {Episode, ShotDef} from '../lib/Episode';
 import {TitleCard} from '../lib/Cards';
 import {tr} from '../lib/i18n';
 import {sentences, FPS, TOTAL_FRAMES} from './sentences';
+import env from './env.json';
 import {shots1} from './shots1';
 import {Soundtrack} from './Soundtrack';
 import * as S2 from './shots2';
@@ -13,7 +14,7 @@ const s9 = sentences.find((x) => x.id === '009')!;
 const titleFrom = Math.round((s9.end + 0.15) * FPS);
 export const Ep01: React.FC<{lang: string}> = ({lang}) => (
   <>
-    <Episode shots={shots} sentences={sentences} fps={FPS} total={TOTAL_FRAMES} audio="ep01/voice.mp3" chapters={CHAPTERS} lang={lang} />
+    <Episode shots={shots} sentences={sentences} fps={FPS} total={TOTAL_FRAMES} audio="ep01/voice.mp3" chapters={CHAPTERS} lang={lang} env={env as number[]} />
     <Soundtrack />
     <Sequence from={titleFrom} durationInFrames={Math.round(4 * FPS)} name="Заставка"><TitleCard title={tr('ЕР ТӨСТІК')} sub={tr('1-бөлім: Сегіз аға')} /></Sequence>
   </>

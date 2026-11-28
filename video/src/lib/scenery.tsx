@@ -13,16 +13,16 @@ export const Steppe: React.FC<{sky?: Sky; ground?: 'steppe' | 'snow' | 'desert';
   return (
     <g>
       <defs><linearGradient id={`sky-${sky}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={a} /><stop offset="1" stopColor={b} /></linearGradient></defs>
-      <rect x={-300} y={-300} width={2520} height={horizon + 320} fill={`url(#sky-${sky})`} />
+      <rect x={-700} y={-300} width={3300} height={horizon + 320} fill={`url(#sky-${sky})`} />
       {sky === 'night' && Array.from({length: 70}).map((_, i) => <circle key={i} cx={rnd(i) * 2400 - 240} cy={rnd(i + 99) * (horizon - 40) - 200} r={1.5 + rnd(i + 7) * 2.5} fill={C.cream} opacity={0.5 + 0.5 * Math.sin(f * 0.1 + i)} />)}
       {sun && sky !== 'night' && sky !== 'winter' && <circle cx={sky === 'day' ? 1560 : 1560} cy={sky === 'day' ? 150 : horizon - 40} r={sky === 'day' ? 80 : 120} fill={sky === 'day' ? '#FFE8A3' : '#FFD08A'} stroke={sky === 'day' ? '#FFD36B' : C.sunset} strokeWidth={10} />}
       {sun && sky === 'night' && <circle cx={1500} cy={160} r={60} fill={C.cream} />}
       {sky !== 'night' && [0, 1, 2].map((i) => <g key={i} transform={`translate(${((i * 800 + f * 0.4) % 2600) - 400},${80 + i * 70})`}><ellipse cx={0} cy={0} rx={110} ry={34} fill="#FFFFFF" opacity={0.85} /><ellipse cx={60} cy={-20} rx={70} ry={30} fill="#FFFFFF" opacity={0.85} /></g>)}
-      {hills && <path d={`M -300 ${horizon} Q 100 ${horizon - 140} 500 ${horizon - 40} T 1300 ${horizon - 70} T 2220 ${horizon - 30} L 2220 ${horizon + 40} L -300 ${horizon + 40} Z`} fill={hillC[0]} />}
-      {hills && <path d={`M -300 ${horizon + 10} Q 300 ${horizon - 60} 800 ${horizon} T 2220 ${horizon - 10} L 2220 ${horizon + 40} L -300 ${horizon + 40} Z`} fill={hillC[1]} opacity={0.7} />}
+      {hills && <path d={`M -700 ${horizon} L -300 ${horizon} Q 100 ${horizon - 140} 500 ${horizon - 40} T 1300 ${horizon - 70} T 2220 ${horizon - 30} L 2600 ${horizon - 30} L 2600 ${horizon + 40} L -700 ${horizon + 40} Z`} fill={hillC[0]} />}
+      {hills && <path d={`M -300 ${horizon + 10} Q 300 ${horizon - 60} 800 ${horizon} T 2220 ${horizon - 10} L 2600 ${horizon - 10} L 2600 ${horizon + 40} L -700 ${horizon + 40} L -700 ${horizon + 10} Z`} fill={hillC[1]} opacity={0.7} />}
       {mirage && <rect x={-300} y={horizon - 60} width={2520} height={70} fill="#FFFFFF" opacity={0.25 + 0.1 * Math.sin(f * 0.2)} />}
-      <rect x={-300} y={horizon} width={2520} height={1400 - horizon} fill={g1} />
-      <path d={`M -300 ${horizon + 120} Q 600 ${horizon + 80} 1100 ${horizon + 150} T 2220 ${horizon + 110} L 2220 1400 L -300 1400 Z`} fill={g2} opacity={0.35} />
+      <rect x={-700} y={horizon} width={3300} height={1400 - horizon} fill={g1} />
+      <path d={`M -300 ${horizon + 120} Q 600 ${horizon + 80} 1100 ${horizon + 150} T 2220 ${horizon + 110} L 2600 ${horizon + 110} L 2600 1400 L -700 1400 L -700 ${horizon + 120} Z`} fill={g2} opacity={0.35} />
       {ground !== 'snow' && Array.from({length: 40}).map((_, i) => { const x = rnd(i * 3) * 2400 - 240; const y = horizon + 30 + rnd(i * 5) * 500; const s = 0.6 + (y - horizon) / 500;
         return <path key={i} d={`M ${x} ${y} l ${-8 * s} ${-22 * s} M ${x} ${y} l 0 ${-28 * s} M ${x} ${y} l ${8 * s} ${-22 * s}`} stroke={ground === 'desert' ? '#B08A40' : C.grassDark} strokeWidth={4} strokeLinecap="round" />; })}
     </g>
@@ -51,16 +51,16 @@ export const YurtInside: React.FC<{light?: boolean; night?: boolean; fire?: bool
   const wall = night ? '#5A3E2E' : '#B07A48';
   return (
     <g>
-      <rect x={-300} y={-300} width={2520} height={1700} fill={night ? '#2A1E1A' : '#6E4A2E'} />
+      <rect x={-700} y={-300} width={3300} height={1700} fill={night ? '#2A1E1A' : '#6E4A2E'} />
       <path d="M -300 -300 L 960 -120 L 2220 -300 L 2220 380 L -300 380 Z" fill={night ? '#3B2A22' : '#C9A37A'} />
       {Array.from({length: 26}).map((_, i) => <line key={'u' + i} x1={960} y1={-120} x2={-300 + i * 101} y2={380} stroke={C.wood} strokeWidth={10} />)}
       <circle cx={960} cy={-120} r={170} fill={night ? '#1E1B3A' : light ? '#BDEFF7' : '#8FA6B8'} stroke={C.woodDark} strokeWidth={22} />
       {tundikOpen > 0 && <circle cx={960} cy={-120} r={150 * tundikOpen} fill={night ? '#2B2D6E' : '#E7FAFF'} opacity={0.9} />}
       <path d="M 810 -120 L 1110 -120 M 960 -270 L 960 30 M 855 -225 L 1065 -15 M 855 -15 L 1065 -225" stroke={C.woodDark} strokeWidth={14} />
-      <rect x={-300} y={380} width={2520} height={400} fill={wall} />
+      <rect x={-700} y={380} width={3300} height={400} fill={wall} />
       {Array.from({length: 40}).map((_, i) => <g key={'k' + i}><line x1={-300 + i * 70} y1={380} x2={-300 + i * 70 + 140} y2={780} stroke={C.woodDark} strokeWidth={7} /><line x1={-300 + i * 70 + 140} y1={380} x2={-300 + i * 70} y2={780} stroke={C.woodDark} strokeWidth={7} /></g>)}
       <rect x={-300} y={370} width={2520} height={22} fill={C.red} stroke={OUT} strokeWidth={4} />
-      <rect x={-300} y={760} width={2520} height={700} fill={C.redDark} />
+      <rect x={-700} y={760} width={3300} height={700} fill={C.redDark} />
       <rect x={-100} y={800} width={2120} height={560} fill={C.red} stroke={C.gold} strokeWidth={10} />
       {Array.from({length: 9}).map((_, i) => <path key={'o' + i} d={`M ${40 + i * 220} 900 q 40 -50 80 0 q 40 50 80 0`} stroke={C.gold} strokeWidth={8} fill="none" />)}
       {fire && <g transform="translate(960,900)"><path d="M -70 30 L -40 -10 L 0 30 L 40 -10 L 70 30 Z" fill={C.woodDark} />
