@@ -47,9 +47,6 @@ const SFX: Fx[] = [
   {src: 'wind', from: at('013', -0.8), dur: endOf('016', 0.5) - at('013', -0.8), vol: 0.9, fadeOut: 30},
   {src: 'wind', from: at('081', -0.2), dur: 75, start: 5, vol: 0.7, fadeOut: 20},
   {src: 'wind', from: at('161', -0.2), dur: endOf('161', 0.3) - at('161', -0.2), start: 12, vol: 0.8, fadeOut: 15},
-  // гул толпы на асе и тое
-  {src: 'crowd', from: at('092', -0.5), dur: endOf('095', 0.3) - at('092', -0.5), vol: 0.12, fadeOut: 20},
-  {src: 'crowd', from: at('133', -0.5), dur: endOf('135', 0.3) - at('133', -0.5), start: 8, vol: 0.12, fadeOut: 20},
 ];
 export const Soundtrack: React.FC = () => (
   <>
