@@ -6,7 +6,7 @@ import {fitSize} from './lib/Cards';
 // Превью 1280x720: картинка из Nano Banana (без текста) + 1–3 слова, жирно, толстая тёмная обводка
 export const Thumb: React.FC<{img: string; lines: string[]; accent?: number}> = ({img, lines, accent = -1}) => {
   loadFonts();
-  const fs = Math.min(...lines.map((l) => fitSize(l, 600, 140)));
+  const fs = Math.min(...lines.map((l) => fitSize(l, 500, 140)));
   return <AbsoluteFill style={{backgroundColor: C.ink}}>
     <Img src={staticFile(img)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
     <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(20,18,46,0.35) 0%, rgba(20,18,46,0.0) 40%)'}} />
