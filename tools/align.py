@@ -19,8 +19,9 @@ def analyze(p,thr=-38,minp=0.18):
     # речь: первая/последняя несилентная
     nz=np.where(~sil)[0]; s0,s1=nz[0]/100,(nz[-1]+1)/100
     return pauses,s0,s1,n/100
-def align(p,chars):
-    N=len(chars)
+def align(p,chars,breaks=None,W=6.0,B=1.0,SP=0.5):
+    """breaks — число границ предложений внутри реплики (там тоже паузы ~SP с)"""
+    N=len(chars); breaks=breaks or [0]*N
     # порог −38 дБ; если пауз не хватает (шум/реверб) — поднимаем порог, затем снижаем мин. паузу
     for thr,minp in [(-38,.18),(-35,.18),(-32,.18),(-30,.15),(-28,.12)]:
         pauses,s0,s1,T=analyze(p,thr,minp)
@@ -29,22 +30,23 @@ def align(p,chars):
         if M>=N-1: break
     if M<N-1: raise SystemExit(f'{p}: пауз {M} < нужно {N-1}')
     align.used=(thr,minp)
-    speech=s1-s0-sum(b-a for a,b in inner); rate=speech/sum(chars)
+    speech=s1-s0-sum(b-a for a,b in inner)
     # DP: выбрать N-1 пауз из M по порядку; стоимость = отклонение длительности сегмента от ожидаемой − бонус за длину паузы
     INF=1e18; mids=[(a+b)/2 for a,b in inner]; plen=[b-a for a,b in inner]
     bounds=[s0]+[None]*0
     # cost(k, j): сегмент k заканчивается на паузе j
     import functools
-    exp=[c*rate for c in chars]
+    tot=s1-s0; rate=(tot-SP*sum(breaks)-0.5*(N-1))/sum(chars)
+    exp=[c*rate+SP*nb for c,nb in zip(chars,breaks)]
     dp=np.full((N,M+1),INF); bk=np.zeros((N,M+1),int)
     # сегмент 0 от s0 до inner[j][0]
-    def seg(st,en,k): d=en-st; return ((d-exp[k])/max(exp[k],0.5))**2
-    for j in range(M): dp[0][j]=seg(s0,inner[j][0],0)-2*plen[j]
+    def seg(st,en,k): d=en-st; return W*((d-exp[k])/max(exp[k],0.5))**2
+    for j in range(M): dp[0][j]=seg(s0,inner[j][0],0)-B*plen[j]
     for k in range(1,N-1):
         for j in range(k,M):
             best=INF;bi=-1
             for i in range(k-1,j):
-                v=dp[k-1][i]+seg(inner[i][1],inner[j][0],k)-2*plen[j]
+                v=dp[k-1][i]+seg(inner[i][1],inner[j][0],k)-B*plen[j]
                 if v<best: best,bi=v,i
             dp[k][j]=best; bk[k][j]=bi
     if N==1: return [(s0,s1)]
