@@ -6,3 +6,4 @@
 - Horse neigh SFX — kave_msri (#373051)
 - "Sahara Sunset (Oriental Relax Ambiance, Desert Flute & Oud)" — djovan (#489155)
 - "Atlas Kazakhstan" — vadim_makes_sound (#562527)
+- "Тұман" (tension.mp3) — оригинальный эмбиент канала (сгенерирован в tools/, без сэмплов). Заменяет "Mysterious and Mystic" (ashot_danielyan) — у него Content ID («Into The Unreal Forest»), с ep02 НЕ использовать.

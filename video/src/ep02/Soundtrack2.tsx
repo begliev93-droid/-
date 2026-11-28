@@ -12,15 +12,15 @@ const speech = (() => { const out = new Float32Array(E.length); for (let i = 0; 
 type Seg = {track: string; from: number; to: number; vol?: number};
 // Музыка по главам
 const MUSIC: Seg[] = [
-  {track: 'mysterious', from: 0, to: at('007', -1.2), vol: 0.9},
+  {track: 'tension', from: 0, to: at('007', -1.2), vol: 0.9},
   {track: 'kazakhstan', from: at('007', -1.2), to: at('028', -0.8)},
   {track: 'desert', from: at('028', -0.8), to: at('046', -0.8)},
   {track: 'kazakhstan', from: at('046', -0.8), to: at('063', -0.8)},
-  {track: 'mysterious', from: at('063', -0.8), to: at('096', -0.8), vol: 0.9},
+  {track: 'tension', from: at('063', -0.8), to: at('096', -0.8), vol: 0.9},
   {track: 'emotional', from: at('096', -0.8), to: at('115', -0.8)},
   {track: 'kazakhstan', from: at('115', -0.8), to: at('139', -0.8)},
   {track: 'desert', from: at('139', -0.8), to: at('163', -0.3)},
-  {track: 'mysterious', from: at('163', -0.3), to: at('182', -0.5), vol: 1},
+  {track: 'tension', from: at('163', -0.3), to: at('182', -0.5), vol: 1},
   {track: 'emotional', from: at('182', -0.5), to: TOTAL_FRAMES},
 ];
 const BED = 0.20, DUCK = 0.06, FADE = 24;
