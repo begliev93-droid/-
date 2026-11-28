@@ -1,9 +1,10 @@
-Музыка и звуки: Pixabay (Pixabay Content License)
-- "Emotional" — alexgrohl (pixabay #559739)
-- "Mysterious and Mystic" — ashot_danielyan (pixabay #116127)
-- Wind Blowing — soundreality (#457954)
-- Whoosh of a speeding arrows — youssefmizani (#430817)
-- Horse neigh SFX — kave_msri (#373051)
-- "Sahara Sunset (Oriental Relax Ambiance, Desert Flute & Oud)" — djovan (#489155)
-- "Atlas Kazakhstan" — vadim_makes_sound (#562527)
-- "Тұман" (tension.mp3) — оригинальный эмбиент канала (сгенерирован в tools/, без сэмплов). Заменяет "Mysterious and Mystic" (ashot_danielyan) — у него Content ID («Into The Unreal Forest»), с ep02 НЕ использовать.
+Музыка и звуки: Pixabay (Pixabay Content License), все БЕЗ «Content ID Registered» (проверено 2026-11-28)
+- "Atlas • Kazakhstan" — vadim_makes_sound (#562527)
+- "Atlas • Tajikistan" — vadim_makes_sound (#567626)
+- "Sahara Sunset (Oriental Relax…)" — djovan (#489155)
+- "240924 - Enchanted / Whimsical / Fairy-tale" — WELC0MEИ0 (#250405)
+- "Whisper of the Forest Fairy" — DJMYRIDA (#519507)
+- "Tender Nostalgic Strings" — DesiFreeMusic (#560980)
+- "Тұман" (tension.mp3) — оригинальный трек канала
+- SFX: Wind Blowing — soundreality (#457954); Whoosh of a speeding arrows — youssefmizani (#430817); Horse neigh — kave_msri (#373051)
+Удалены из видео (Content ID): "Mysterious and Mystic" (ashot_danielyan), "Emotional" (alexgrohl), Crowd Noise (мешал голосу).
